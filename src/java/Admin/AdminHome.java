@@ -33,11 +33,10 @@ public class AdminHome extends HttpServlet {
                     + "<script src=\"https://kit.fontawesome.com/fdf05f1614.js\" crossorigin=\"anonymous\"></script>"
                     + "</head>\n"
                     + "<body class='bg-gray-400'>\n");
-            out.println("<nav class='bg-purple-600 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900'>\n"
+            out.println("<nav class='bg-purple-600 px-2 sm:px-20 py-2.5 rounded dark:bg-gray-900'>\n"
                     + "  <div class='flex flex-wrap justify-between items-center mx-auto'>\n"
                     + "  <a href='AdminHome' class='flex items-center'>\n"
-                    + "      <img src='Images/logo.svg' class='mr-3 h-6 sm:h-9' alt='Flowbite Logo'>\n"
-                    + "      <span class='self-center text-xl font-semibold whitespace-nowrap dark:text-white'>ExamHub</span>\n"
+                    + "      <img src='Images/Plogo.png' class='mr-3 h-6 sm:h-9' alt='Flowbite Logo'>\n"
                     + "  </a>\n"
                     + "  <div class='flex items-center md:order-2'>\n"
                     + "      <button type='button' class='flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600' id='user-menu-button' aria-expanded='false' data-dropdown-toggle='user-dropdown' data-dropdown-placement='bottom'>\n"
@@ -54,10 +53,16 @@ public class AdminHome extends HttpServlet {
                     + "        </div>\n"
                     + "        <ul class='py-1' aria-labelledby='user-menu-button'>\n"
                     + "          <li>\n"
-                    + "            <a href='#' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Profile</a>\n"
+                    + "            <a href='AdminHome?choice=Profile' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Profile</a>\n"
                     + "          </li>\n"
                     + "          <li>\n"
-                    + "            <a href='Logout' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Sign out</a>\n"
+                    + "            <a href='AdminHome?choice=UpdateProfile' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Update Profile</a>\n"
+                    + "          </li>\n"
+                    + "          <li>\n"
+                    + "            <a href='AdminHome?choice=ChangePassword' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Change Password</a>\n"
+                    + "          </li>\n"
+                    + "          <li>\n"
+                    + "            <a href='Logout' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Logout</a>\n"
                     + "          </li>\n"
                     + "        </ul>\n"
                     + "      </div>\n"
@@ -111,10 +116,7 @@ public class AdminHome extends HttpServlet {
                     + "            </div>\n"
                     + "        </li>"
                     + "      <li>\n"
-                    + "        <a href='AdminHome?choice=result' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Result</a>\n"
-                    + "      </li>\n"
-                    + "      <li>\n"
-                    + "        <a href='AdminHome?choice=AdminChangePassword' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Change Password</a>\n"
+                    + "        <a href='AdminHome?choice=Result' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Result</a>\n"
                     + "      </li>\n"
                     + "    </ul>\n"
                     + "  </div>\n"
@@ -221,9 +223,17 @@ public class AdminHome extends HttpServlet {
                             RequestDispatcher rd9 = request.getRequestDispatcher("DeleteStudent");
                             rd9.include(request, response);
                             break;
-                        case "AdminChangePassword":
-                            RequestDispatcher rd12 = request.getRequestDispatcher("AdminChangePassword");
+                        case "ChangePassword":
+                            RequestDispatcher rd12 = request.getRequestDispatcher("ChangePassword");
                             rd12.include(request, response);
+                            break;
+                        case "Profile":
+                            RequestDispatcher rd13 = request.getRequestDispatcher("Profile");
+                            rd13.include(request, response);
+                            break;
+                        case "UpdateProfile":
+                            RequestDispatcher rd14 = request.getRequestDispatcher("UpdateProfile");
+                            rd14.include(request, response);
                             break;
                         default:
                             RequestDispatcher rd3 = request.getRequestDispatcher("AdminDashBoard");
@@ -234,7 +244,7 @@ public class AdminHome extends HttpServlet {
 
                 }
             } else {
-                response.sendRedirect("index.html");
+                response.sendRedirect("/OnlineExam");
             }
 
             out.println("</div></body>\n"

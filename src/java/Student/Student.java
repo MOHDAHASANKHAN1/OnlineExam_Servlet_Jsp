@@ -2,6 +2,7 @@ package Student;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,76 +13,182 @@ public class Student extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Object name = session.getAttribute("Student");
+
+        String msg = request.getParameter("msg"),
+                msgtype = request.getParameter("msgtype"),
+                choice = request.getParameter("choice");
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            if (session.getAttribute("Student") == null) {
-                response.sendRedirect("index.html");
-            }
-            out.println("<!DOCTYPE html>\n"
-                    + "<html lang='en'>\n"
+
+            out.println("<!doctype html>\n"
+                    + "<html>\n"
                     + "<head>\n"
-                    + "    <meta charset='UTF-8'>\n"
-                    + "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n"
-                    + "    <title>Document</title>\n"
-                    + "    <style>\n"
-                    + "        /* CSS RESET  */\n"
-                    + "        body{\n"
-                    + "            margin: 0px;\n"
-                    + "            padding: 0px;\n"
-                    + "            background: url(Images/Student7.jpg);\n"
-                    + "            background-repeat:no-repeat ;\n"
-                    + "           background-size: 1550px 800px;\n"
-                    + "           \n"
-                    + "             \n"
-                    + "           \n"
-                    + "        }\n"
-                    + "        .navbar\n"
-                    + "        {\n"
-                    + "         display: inline-block;\n"
-                    + "         border: 3px solid white;\n"
-                    + "        margin-left: 2%;\n"
-                    + "         margin-top: 25px;\n"
-                    + "         border-radius: 5px;\n"
-                    + "         /* position: fixed; */\n"
-                    + "        }\n"
-                    + "        .navbar li{\n"
-                    + "            display: inline-block;\n"
-                    + "        }\n"
-                    + "        .navbar li a{\n"
-                    + "            color: white;\n"
-                    + "            font-size: 23px;\n"
-                    + "            padding:  60px;\n"
-                    + "            text-decoration: none; \n"
-                    + "        }\n"
-                    + "        .navbar li a:hover{\n"
-                    + "           \n"
-                    + "            color: grey;\n"
-                    + "            font-size: 23px;\n"
-                    + "            padding:  60px;\n"
-                    + "            text-decoration: none; \n"
-                    + "        }\n"
-                    + "\n"
-                    + "    \n"
-                    + "    </style>\n"
+                    + "  <meta charset='UTF-8'>\n"
+                    + "  <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n"
+                    + "  <script src=\"https://unpkg.com/flowbite@1.5.3/dist/flowbite.js\"></script>\n"
+                    + "<script src=\"https://cdn.tailwindcss.com\"></script>"
+                    + "<script src=\"https://kit.fontawesome.com/fdf05f1614.js\" crossorigin=\"anonymous\"></script>"
                     + "</head>\n"
-                    + "<body>\n"
-                    + "    <header>\n"
-                    + "        <div class='navbar'>\n"
-                    + "        <ul>\n"
-                    + "        <li><a href=' '> Profile</a> </li>\n"
-                    + "        <li><a href=''>Exam</a></li>\n"
-                    + "        <li><a href=''>Result</a></li>\n"
-                    + "        <li> <a href=''>Feedback</a></li>\n"
-                    + "        <li><a href=''>Update Profile</a></li>\n"
-                    + "        <li><a href=''>Feedback</a></li>\n"
-                    + "        <li><a href=Logout>Logout</a></li>\n"
+                    + "<body class='bg-gray-400'>\n");
+            out.println("<nav class='bg-purple-600 px-2 sm:px-20 py-2.5 rounded dark:bg-gray-900'>\n"
+                    + "  <div class='flex flex-wrap justify-between items-center mx-auto'>\n"
+                    + "  <a href='Student' class='flex items-center'>\n"
+                    + "      <img src='Images/Plogo.png' class='mr-3 h-6 sm:h-9' alt='Flowbite Logo'>\n"
+                    + "  </a>\n"
+                    + "  <div class='flex items-center md:order-2'>\n"
+                    + "      <button type='button' class='flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600' id='user-menu-button' aria-expanded='false' data-dropdown-toggle='user-dropdown' data-dropdown-placement='bottom'>\n"
+                    + "        <span class='sr-only'>Open user menu</span>\n"
+                    + "        <img class='w-8 h-8 rounded-full' src='Images/AdminImg.jpg' alt='user photo'>\n"
+                    + "      </button>\n"
+                    + "      <!-- Dropdown menu -->\n"
+                    + "      <div class='hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600' id='user-dropdown' data-popper-reference-hidden='' data-popper-escaped='' data-popper-placement='bottom' style='position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 10.4px, 0px);'>\n"
+                    + "        <div class='py-3 px-4'>\n"
+                    + "          <span class='block text-sm text-gray-900 dark:text-white'>Mohd Ahasan Khan</span>\n"
+                    + "          <span class='block text-sm font-medium text-gray-500 truncate dark:text-gray-400'>"
+                    + name
+                    + "</span>\n"
+                    + "        </div>\n"
+                    + "        <ul class='py-1' aria-labelledby='user-menu-button'>\n"
+                    + "          <li>\n"
+                    + "            <a href='Student?choice=Profile' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Profile</a>\n"
+                    + "          </li>\n"
+                    + "          <li>\n"
+                    + "            <a href='Student?choice=UpdateProfile' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Update Profile</a>\n"
+                    + "          </li>\n"
+                    + "          <li>\n"
+                    + "            <a href='Student?choice=ChangePassword' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Change Password</a>\n"
+                    + "          </li>\n"
+                    + "          <li>\n"
+                    + "            <a href='Logout' class='block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'>Logout</a>\n"
+                    + "          </li>\n"
                     + "        </ul>\n"
-                    + "    </div><hr>\n"
-                    + "    </header>\n"
-                    + "    \n"
-                    + "</body>\n"
+                    + "      </div>\n"
+                    + "      <button data-collapse-toggle='mobile-menu-2' type='button' class='inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600' aria-controls='mobile-menu-2' aria-expanded='false'>\n"
+                    + "        <span class='sr-only'>Open main menu</span>\n"
+                    + "        <svg class='w-6 h-6' aria-hidden='true' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z' clip-rule='evenodd'></path></svg>\n"
+                    + "    </button>\n"
+                    + "  </div>\n"
+                    + "  <div class='hidden justify-between items-center w-full md:flex md:w-auto md:order-1' id='mobile-menu-2'>\n"
+                    + "    <ul class='flex flex-col p-4 mt-4 bg-orange-400 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium dark:bg-gray-800 md:dark:bg-gray-900 '>\n"
+                    + "      <li>\n"
+                    + "        <a href='Student?choice=StudentDashboard' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Home</a>\n"
+                    + "      </li>\n"
+                    + "      <li>\n"
+                    + "        <a href='Student?choice=Exam' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Exam</a>\n"
+                    + "      </li>\n"
+                    + "      <li>\n"
+                    + "        <a href='Student?choice=StudentResult' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Result</a>\n"
+                    + "      </li>\n"
+                    + "      <li>\n"
+                    + "        <a href='Student?choice=GiveFeedback' class='block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent '>Feedback</a>\n"
+                    + "      </li>\n"
+                    + "    </ul>\n"
+                    + "  </div>\n"
+                    + "  </div>\n"
+                    + "</nav>");
+            if (msg != null) {
+                if (msgtype != null) {
+                    if (msgtype.equals("success")) {
+                        out.println("<div class='relative w-full'>"
+                                + "<div id='toast-success' class='absolute top-5 right-5 flex items-center p-4 mb-4 w-full max-w-xs text-white text-bold bg-green-400 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800' role='alert'>\n"
+                                + "    <div class='inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200'>\n"
+                                + "        <svg aria-hidden='true' class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'></path></svg>\n"
+                                + "        <span class='sr-only'>Check icon</span>\n"
+                                + "    </div>\n"
+                                + "    <div class='ml-3 text-sm font-normal'>"
+                                + msg
+                                + "</div>\n"
+                                + "    <button type='button' class='ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700' data-dismiss-target='#toast-success' aria-label='Close'>\n"
+                                + "        <span class='sr-only'>Close</span>\n"
+                                + "        <svg aria-hidden='true' class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clip-rule='evenodd'></path></svg>\n"
+                                + "    </button>\n"
+                                + "</div>"
+                                + "</div>");
+                    } else if (msgtype.equals("error")) {
+                        out.println("<div class='relative w-full'><div id='toast-warning' class='absolute top-5 right-5 flex items-center p-4 w-full max-w-xs text-white bg-red-600 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800' role='alert'>\n"
+                                + "    <div class='inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-500 bg-red-100 rounded-lg dark:bg-orange-700 dark:text-orange-200'>\n"
+                                + "        <svg xmlns='http://www.w3.org/2000/svg' class='w-8 h-8 text-red-600' viewBox='0 0 20 20' fill='currentColor'>\n"
+                                + "      <path fill-rule='evenodd'\n"
+                                + "        d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z'\n"
+                                + "        clip-rule='evenodd' />\n"
+                                + "    </svg>\n"
+                                + "<span class='sr-only'>Warning icon</span>\n"
+                                + "    </div>\n"
+                                + "    <div class='ml-3 text-sm font-normal'>"
+                                + msg
+                                + "</div>\n"
+                                + "    <button type='button' class='ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700' data-dismiss-target='#toast-warning' aria-label='Close'>\n"
+                                + "        <span class='sr-only'>Close</span>\n"
+                                + "        <svg aria-hidden='true' class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clip-rule='evenodd'></path></svg>\n"
+                                + "    </button>\n"
+                                + "</div></div>");
+                    } else if (msgtype.equals("delete")) {
+                        out.println("<div class='relative w-full'><div id='toast-danger' class='absolute top-5 right-5 flex items-center p-4 mb-4 w-full max-w-xs text-white bg-pink-600 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800' role='alert'>\n"
+                                + "    <div class='inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-red-500 bg-pink-100 rounded-lg dark:bg-red-800 dark:text-red-200'>\n"
+                                + "       <svg aria-hidden=\"true\" class=\"w-5 h-5\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" d=\"M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path></svg>\n"
+                                + "        \n"
+                                + "      <path fill-rule='evenodd'\n"
+                                + "        d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z'\n"
+                                + "        clip-rule='evenodd' />\n"
+                                + "    </svg>\n"
+                                + "<span class='sr-only'>Error icon</span>\n"
+                                + "    </div>\n"
+                                + "    <div class='ml-3 text-sm font-normal'>"
+                                + msg
+                                + "</div>\n"
+                                + "    <button type='button' class='ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700' data-dismiss-target='#toast-danger' aria-label='Close'>\n"
+                                + "        <span class='sr-only'>Close</span>\n"
+                                + "        <svg aria-hidden='true' class='w-5 h-5' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z' clip-rule='evenodd'></path></svg>\n"
+                                + "    </button>\n"
+                                + "</div></div>");
+
+                    }
+                }
+            }
+            out.println("<div class='flex justify-center'>");
+
+            if (name != null) {
+                if (choice != null) {
+                    switch (choice) {
+                        case "Exam":
+                            RequestDispatcher rd = request.getRequestDispatcher("Exam");
+                            rd.include(request, response);
+                            break;
+                        case "StudentResult":
+                            RequestDispatcher rd1 = request.getRequestDispatcher("StudentResult");
+                            rd1.include(request, response);
+                            break;
+                        case "GiveFeedback":
+                            RequestDispatcher rd2 = request.getRequestDispatcher("GiveFeedback");
+                            rd2.include(request, response);
+                            break;
+                        case "Profile":
+                            RequestDispatcher rd5 = request.getRequestDispatcher("Profile");
+                            rd5.include(request, response);
+                            break;
+                        case "UpdateProfile":
+                            RequestDispatcher rd4 = request.getRequestDispatcher("UpdateProfile");
+                            rd4.include(request, response);
+                            break;
+                        case "ChangePassword":
+                            RequestDispatcher rd6 = request.getRequestDispatcher("ChangePassword");
+                            rd6.include(request, response);
+                            break;
+                        default:
+                            RequestDispatcher rd3 = request.getRequestDispatcher("StudentDashboard");
+                            rd3.include(request, response);
+                    }
+                } else {
+                    response.sendRedirect("Student?choice=StudentDashboard");
+
+                }
+            } else {
+                response.sendRedirect("Login");
+            }
+
+            out.println("</div></body>\n"
                     + "</html>");
         }
     }

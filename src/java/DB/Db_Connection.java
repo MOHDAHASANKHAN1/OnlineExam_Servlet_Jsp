@@ -14,11 +14,11 @@ public class Db_Connection {
     public Db_Connection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String ConDb = "jdbc:mysql://localhost:3306/onlineexams";
-            //String ConDb = "jdbc:mysql://node1219-env-3298092.per1.cloudsig.ma/onlineexams";
+            //String ConDb = "jdbc:mysql://localhost:3306/onlineexams";
+            String ConDb = "jdbc:mysql://node1160-env-2944662.sjc3.cloudsig.ma/onlineexams";
             String ConUsername = "root";
-            String ConPassword = "Khan@786";
-            //String ConPassword = "HERgyi68529";
+            //String ConPassword = "Khan@786";
+            String ConPassword = "AEAgmf14107";
             Con = DriverManager.getConnection(ConDb, ConUsername, ConPassword);
         } catch (Exception e) {
         }

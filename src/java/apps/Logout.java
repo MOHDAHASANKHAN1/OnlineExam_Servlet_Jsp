@@ -16,7 +16,7 @@ public class Logout extends HttpServlet {
         HttpSession session = request.getSession();
         session.removeAttribute("Admin");
         session.removeAttribute("Student");
-        response.sendRedirect("index.html");
+        response.sendRedirect("/OnlineExam");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
