@@ -70,6 +70,24 @@ In this project there are four sub modules:
 ### FAQ Page
 ![Screenshot (213)](https://user-images.githubusercontent.com/95666818/213905463-7adb3e75-b1a5-47f3-bf9e-a31c218f825c.png)
 
+### Admin Add Question Page
+![Uploading Screenshot (220).png…]()
+
+### Admin Update Question Page
+![Screenshot (223)](https://user-images.githubusercontent.com/95666818/213916359-3739126b-394b-4910-81d4-05f410e35c68.png)
+
+### Admin View Question List Page
+![Screenshot (221)](https://user-images.githubusercontent.com/95666818/213916430-42034a03-8ad1-4a21-99d5-9f029ebddc52.png)
+
+### Admin View Student List Page
+![Screenshot (222)](https://user-images.githubusercontent.com/95666818/213916433-6157ca01-74f5-4bd2-a3c0-20cd73d709da.png)
+
+### Student Exam Page
+![Uploading Screenshot (218).png…]()
+
+### Certificate Page
+![Uploading Screenshot (219).png…]()
+
 
 ## Authors
 
