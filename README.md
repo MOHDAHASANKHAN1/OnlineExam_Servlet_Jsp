@@ -49,6 +49,28 @@ In this project there are four sub modules:
 - Student can update profile.
 - Student can change password.
 - Student can logout
+
+## Screenshots
+
+### Home Page
+![Screenshot (211)](https://user-images.githubusercontent.com/95666818/213905244-10eeddf4-af04-4b31-a361-d1edf57407ed.png)
+
+### Register Page
+![Screenshot (217)](https://user-images.githubusercontent.com/95666818/213905416-58a926a0-15b0-4d81-9c90-a93b365f8225.png)
+
+### Login Page
+![Screenshot (216)](https://user-images.githubusercontent.com/95666818/213905423-ef88d794-f120-47a7-87bc-f5010704aacc.png)
+
+### Courses Page
+![Screenshot (212)](https://user-images.githubusercontent.com/95666818/213905441-cafbe33b-31fc-48d9-a56d-cabca1966acd.png)
+
+### Contact Page
+![Screenshot (214)](https://user-images.githubusercontent.com/95666818/213905457-3de39480-76cf-49aa-877c-f300ef3e4840.png)
+
+### FAQ Page
+![Screenshot (213)](https://user-images.githubusercontent.com/95666818/213905463-7adb3e75-b1a5-47f3-bf9e-a31c218f825c.png)
+
+
 ## Authors
 
 - [@Mohd Ahasan Khan](https://github.com/MOHDAHASANKHAN1)
